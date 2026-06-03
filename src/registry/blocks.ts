@@ -24,27 +24,49 @@ export const BLOCK_REGISTRY: Record<string, BlockSchema> = {
     type: 'navbar-basic', name: 'Basic Navbar', category: 'Headers', icon: '🔝',
     previewImage: 'https://placehold.co/400x100/f3f4f6/374151?text=Basic+Navbar',
     fields: {
-      logoText: { type: 'text', label: 'Logo Text', default: 'Brand' },
-      links: { type: 'text', label: 'Links (comma separated)', default: 'Home, Features, Pricing, About' },
-      buttonText: { type: 'text', label: 'Button Text', default: 'Sign In' }
+      navbarBgColor: { type: 'color', label: 'Navbar BG Color', default: '#ffffff', group: 'Navbar' },
+      logoText: { type: 'text', label: 'Logo Text', default: 'Brand', group: 'Logo' },
+      logoBgColor: { type: 'color', label: 'Logo BG Color', default: 'transparent', group: 'Logo' },
+      links: { type: 'text', label: 'Links (comma separated)', default: 'Home, Features, Pricing, About', group: 'Nav Items' },
+      textColor: { type: 'color', label: 'Link Text Color', default: '#4b5563', group: 'Nav Items' },
+      activeTextColor: { type: 'color', label: 'Active Link Color', default: '#3b82f6', group: 'Nav Items' },
+      textSize: { type: 'number', label: 'Text Size (px)', default: 14, group: 'Nav Items' },
+      buttonText: { type: 'text', label: 'Button Text', default: 'Sign In', group: 'Button' },
+      buttonColor: { type: 'color', label: 'Button BG Color', default: '#2563eb', group: 'Button' },
+      buttonTextColor: { type: 'color', label: 'Button Text Color', default: '#ffffff', group: 'Button' },
+      buttonTextSize: { type: 'number', label: 'Button Text Size (px)', default: 14, group: 'Button' },
+      borderRadius: { type: 'number', label: 'Border Radius (px)', default: 8, group: 'Button' }
     }
   },
   'navbar-centered': {
     type: 'navbar-centered', name: 'Centered Navbar', category: 'Headers', icon: '↔️',
     previewImage: 'https://placehold.co/400x100/f3f4f6/374151?text=Centered+Navbar',
     fields: {
-      logoText: { type: 'text', label: 'Logo Text', default: 'Brand' },
-      links: { type: 'text', label: 'Links (comma separated)', default: 'Home, Features, Pricing, About' },
-      buttonText: { type: 'text', label: 'Button Text', default: 'Sign In' }
+      navbarBgColor: { type: 'color', label: 'Navbar BG Color', default: '#ffffff', group: 'Navbar' },
+      logoText: { type: 'text', label: 'Logo Text', default: 'Brand', group: 'Logo' },
+      logoBgColor: { type: 'color', label: 'Logo BG Color', default: 'transparent', group: 'Logo' },
+      links: { type: 'text', label: 'Links (comma separated)', default: 'Home, Features, Pricing, About', group: 'Nav Items' },
+      textColor: { type: 'color', label: 'Link Text Color', default: '#4b5563', group: 'Nav Items' },
+      activeTextColor: { type: 'color', label: 'Active Link Color', default: '#3b82f6', group: 'Nav Items' },
+      textSize: { type: 'number', label: 'Text Size (px)', default: 14, group: 'Nav Items' },
+      buttonText: { type: 'text', label: 'Button Text', default: 'Sign In', group: 'Button' },
+      buttonColor: { type: 'color', label: 'Button BG Color', default: '#2563eb', group: 'Button' },
+      buttonTextColor: { type: 'color', label: 'Button Text Color', default: '#ffffff', group: 'Button' },
+      buttonTextSize: { type: 'number', label: 'Button Text Size (px)', default: 14, group: 'Button' },
+      borderRadius: { type: 'number', label: 'Border Radius (px)', default: 8, group: 'Button' }
     }
   },
   'navbar-minimal': {
     type: 'navbar-minimal', name: 'Minimal Navbar', category: 'Headers', icon: '➖',
     previewImage: 'https://placehold.co/400x100/f3f4f6/374151?text=Minimal+Navbar',
     fields: {
-      logoText: { type: 'text', label: 'Logo Text', default: 'Brand' },
-      links: { type: 'text', label: 'Links (comma separated)', default: 'Home, Features, Pricing, About' },
-      buttonText: { type: 'text', label: 'Button Text', default: '' } // no button
+      navbarBgColor: { type: 'color', label: 'Navbar BG Color', default: '#ffffff', group: 'Navbar' },
+      logoText: { type: 'text', label: 'Logo Text', default: 'Brand', group: 'Logo' },
+      logoBgColor: { type: 'color', label: 'Logo BG Color', default: 'transparent', group: 'Logo' },
+      links: { type: 'text', label: 'Links (comma separated)', default: 'Home, Features, Pricing, About', group: 'Nav Items' },
+      textColor: { type: 'color', label: 'Link Text Color', default: '#4b5563', group: 'Nav Items' },
+      activeTextColor: { type: 'color', label: 'Active Link Color', default: '#3b82f6', group: 'Nav Items' },
+      textSize: { type: 'number', label: 'Text Size (px)', default: 14, group: 'Nav Items' }
     }
   },
 

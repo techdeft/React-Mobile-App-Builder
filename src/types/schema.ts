@@ -5,6 +5,7 @@ export interface FieldSchema {
   label: string;
   default?: any;
   options?: { label: string; value: string }[]; // For select fields
+  group?: string; // e.g. 'Content', 'Colors', 'Styles'
 }
 
 export interface BlockSchema {
