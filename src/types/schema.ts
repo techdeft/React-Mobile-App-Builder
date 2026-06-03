@@ -12,6 +12,7 @@ export interface BlockSchema {
   name: string; // e.g. 'Hero Banner'
   category: string;
   icon: string; // an SVG or emoji representation
+  previewImage?: string; // Image URL for sidebar preview
   fields: Record<string, FieldSchema>;
 }
 

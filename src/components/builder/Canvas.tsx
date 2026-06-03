@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BlockInstance } from '../../types/schema';
 import { BlockRenderer } from '../blocks/BlockRenderer';
 import './Canvas.css';
@@ -18,10 +18,27 @@ export function Canvas({
   onDeleteBlock,
   onMoveBlock
 }: CanvasProps) {
+  const [previewMode, setPreviewMode] = useState<'mobile' | 'web'>('mobile');
+
   return (
     <div className="canvas-container">
-      <div className="device-frame">
-        <div className="device-notch"></div>
+      <div className="canvas-toolbar">
+        <button 
+          className={`toggle-btn ${previewMode === 'mobile' ? 'active' : ''}`}
+          onClick={() => setPreviewMode('mobile')}
+        >
+          📱 Mobile
+        </button>
+        <button 
+          className={`toggle-btn ${previewMode === 'web' ? 'active' : ''}`}
+          onClick={() => setPreviewMode('web')}
+        >
+          💻 Web
+        </button>
+      </div>
+
+      <div className={`device-frame ${previewMode === 'web' ? 'desktop-frame' : ''}`}>
+        {previewMode === 'mobile' && <div className="device-notch"></div>}
         <div className="device-screen">
           {blocks.length === 0 ? (
             <div className="empty-canvas">

@@ -2,11 +2,17 @@ import React from 'react';
 import './Blocks.css';
 
 interface CategoriesGridProps {
+  type: string;
   settings: Record<string, any>;
 }
 
-export function CategoriesGrid({ settings }: CategoriesGridProps) {
-  const { title, layout } = settings;
+export function CategoriesGrid({ type, settings }: CategoriesGridProps) {
+  const { title } = settings;
+
+  // Determine layout from the block type instead of the old setting
+  let layout = 'grid';
+  if (type === 'categories-scroll') layout = 'scroll';
+  if (type === 'categories-list') layout = 'list';
 
   const categories = [
     { id: 1, name: 'Electronics', icon: '💻' },
@@ -18,7 +24,7 @@ export function CategoriesGrid({ settings }: CategoriesGridProps) {
   return (
     <div className="categories-block">
       <h3 className="section-title">{title}</h3>
-      <div className={`categories-${layout || 'grid'}`}>
+      <div className={`categories-${layout}`}>
         {categories.map(cat => (
           <div key={cat.id} className="category-item">
             <div className="category-icon">{cat.icon}</div>
