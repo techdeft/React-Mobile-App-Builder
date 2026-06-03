@@ -1,0 +1,144 @@
+/* Blocks Styles */
+.hero-banner-block {
+  padding: 40px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.hero-title {
+  margin: 0 0 10px 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.hero-subtitle {
+  margin: 0 0 20px 0;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.hero-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.hero-btn:hover {
+  transform: scale(1.05);
+}
+
+/* Featured Products */
+.featured-products-block, .categories-block {
+  padding: 20px;
+  background: white;
+  color: #333;
+}
+
+.section-title {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.products-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.product-card {
+  border: 1px solid #eaeaea;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.product-image {
+  background: #f8f8f8;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+}
+
+.product-info {
+  padding: 10px;
+}
+
+.product-name {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.product-price {
+  font-size: 13px;
+  color: #5e6ad2;
+  font-weight: 600;
+}
+
+/* Categories */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  text-align: center;
+}
+
+.categories-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.categories-scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 12px;
+  padding-bottom: 8px;
+}
+
+.category-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.categories-list .category-item {
+  flex-direction: row;
+  padding: 10px;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.category-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  background: #f0f0f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.categories-list .category-icon {
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+}
+
+.category-name {
+  font-size: 12px;
+  font-weight: 500;
+}
