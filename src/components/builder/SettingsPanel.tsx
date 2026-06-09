@@ -1,113 +1,91 @@
 import React from 'react';
-import { BlockInstance } from '../../types/schema';
-import { BLOCK_REGISTRY } from '../../registry/blocks';
+import { useEditor } from '@craftjs/core';
 import './SettingsPanel.css';
 
-interface SettingsPanelProps {
-  selectedBlock: BlockInstance | null;
-  onUpdateSettings: (settings: Record<string, any>) => void;
-}
+export function SettingsPanel() {
+  const { selected, actions } = useEditor((state) => {
+    const [currentNodeId] = state.events.selected;
+    let selected;
 
-export function SettingsPanel({ selectedBlock, onUpdateSettings }: SettingsPanelProps) {
-  if (!selectedBlock) {
+    if (currentNodeId) {
+      selected = {
+        id: currentNodeId,
+        name: state.nodes[currentNodeId].data.name,
+        isDeletable: state.nodes[currentNodeId].rules.canDrag(),
+        props: state.nodes[currentNodeId].data.props,
+      };
+    }
+
+    return { selected };
+  });
+
+  if (!selected) {
     return (
       <div className="settings-panel empty-state">
         <div className="empty-icon">⚙️</div>
-        <p>Select a block on the canvas to configure its settings.</p>
+        <p>Select a component to configure its settings.</p>
       </div>
     );
   }
 
-  const schema = BLOCK_REGISTRY[selectedBlock.type];
-  if (!schema) return null;
-
-  const handleChange = (key: string, value: any) => {
-    onUpdateSettings({
-      ...selectedBlock.settings,
-      [key]: value
+  const handlePropChange = (key: string, value: any) => {
+    actions.setProp(selected.id, (props: any) => {
+      props[key] = value;
     });
   };
-
-  const groupedFields = Object.entries(schema.fields).reduce((acc, [key, field]) => {
-    const group = field.group || 'General';
-    if (!acc[group]) {
-      acc[group] = [];
-    }
-    acc[group].push({ key, field });
-    return acc;
-  }, {} as Record<string, { key: string; field: any }[]>);
 
   return (
     <div className="settings-panel">
       <div className="settings-header">
-        <span className="settings-icon">{schema.icon}</span>
-        <h3>{schema.name}</h3>
+        <h3>{selected.name}</h3>
+        {selected.isDeletable && (
+          <button 
+            className="delete-btn" 
+            onClick={() => actions.delete(selected.id)}
+            style={{ color: 'red', cursor: 'pointer', background: 'none', border: 'none', marginLeft: 'auto' }}
+          >
+            Delete
+          </button>
+        )}
       </div>
       
       <div className="settings-form">
-        {Object.entries(groupedFields).map(([groupName, fields]) => (
-          <div key={groupName} className="settings-group">
-            <h4 className="settings-group-title">{groupName}</h4>
-            <div className="settings-group-content">
-              {fields.map(({ key, field }) => {
-                const value = selectedBlock.settings[key] || '';
-                const isFullWidth = field.type === 'text' || field.type === 'textarea';
-                
-                return (
-                  <div key={key} className={`form-group ${isFullWidth ? 'full-width' : ''}`}>
-                    <label>{field.label}</label>
-                    
-                    {field.type === 'text' && (
-                      <input 
-                        type="text" 
-                        value={value} 
-                        onChange={(e) => handleChange(key, e.target.value)} 
-                      />
-                    )}
-                    
-                    {field.type === 'textarea' && (
-                      <textarea 
-                        value={value} 
-                        onChange={(e) => handleChange(key, e.target.value)}
-                        rows={3}
-                      />
-                    )}
-                    
-                    {field.type === 'color' && (
-                      <div className="color-picker-wrapper">
-                        <input 
-                          type="color" 
-                          value={value} 
-                          onChange={(e) => handleChange(key, e.target.value)} 
-                        />
-                        <span className="color-value">{value}</span>
-                      </div>
-                    )}
-                    
-                    {field.type === 'select' && field.options && (
-                      <select 
-                        value={value} 
-                        onChange={(e) => handleChange(key, e.target.value)}
-                      >
-                        {field.options.map((opt: any) => (
-                          <option key={opt.value} value={opt.value}>{opt.label}</option>
-                        ))}
-                      </select>
-                    )}
-                    
-                    {field.type === 'number' && (
-                      <input 
-                        type="number" 
-                        value={value} 
-                        onChange={(e) => handleChange(key, parseInt(e.target.value, 10))} 
-                      />
-                    )}
-                  </div>
-                );
-              })}
+        {Object.entries(selected.props).map(([key, value]) => {
+          if (key === 'children') return null;
+          
+          return (
+            <div key={key} className="form-group" style={{ marginBottom: 15 }}>
+              <label style={{ display: 'block', marginBottom: 5, fontSize: 12, fontWeight: 600, color: '#666', textTransform: 'capitalize' }}>
+                {key}
+              </label>
+              {(typeof value === 'string' && value.startsWith('#')) ? (
+                <div className="color-picker-wrapper" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <input 
+                    type="color" 
+                    value={value} 
+                    onChange={(e) => handlePropChange(key, e.target.value)} 
+                    style={{ width: 30, height: 30, padding: 0, border: 'none', borderRadius: 4 }}
+                  />
+                  <span className="color-value" style={{ fontFamily: 'monospace', fontSize: 12 }}>{value}</span>
+                </div>
+              ) : typeof value === 'number' ? (
+                <input 
+                  type="number" 
+                  value={value as number} 
+                  onChange={(e) => handlePropChange(key, parseFloat(e.target.value))} 
+                  style={{ width: '100%', padding: '8px 12px', borderRadius: 4, border: '1px solid #ddd' }}
+                />
+              ) : (
+                <input 
+                  type="text" 
+                  value={value as string} 
+                  onChange={(e) => handlePropChange(key, e.target.value)} 
+                  style={{ width: '100%', padding: '8px 12px', borderRadius: 4, border: '1px solid #ddd' }}
+                />
+              )}
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
